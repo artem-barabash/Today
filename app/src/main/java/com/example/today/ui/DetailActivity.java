@@ -1,37 +1,32 @@
-package com.example.today;
+package com.example.today.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.example.today.R;
 import com.example.today.databinding.ActivityDetailBinding;
 import com.example.today.models.NewsHeadlines;
 import com.example.today.view_model.DetailViewModel;
-import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private NewsHeadlines newsHeadlines;
+    @SuppressLint("StaticFieldLeak")
+    public static ActivityDetailBinding activityDetailBinding;
 
-    ImageView imageArticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
 
+        NewsHeadlines newsHeadlines = getIntent().getParcelableExtra("currentArticle");
 
-        newsHeadlines = getIntent().getParcelableExtra("currentArticle");
-
-        ActivityDetailBinding activityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        activityDetailBinding = DataBindingUtil.setContentView(this,
+                R.layout.activity_detail);
         activityDetailBinding.setViewModel(new DetailViewModel(newsHeadlines));
         activityDetailBinding.executePendingBindings();
-
-        imageArticle = findViewById(R.id.imageArticle);
-        Picasso.get().load(newsHeadlines.getUrlToImage()).into(imageArticle);
 
     }
 }

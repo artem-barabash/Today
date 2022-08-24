@@ -14,40 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RequestManager {
-    Context context;
+    static Retrofit retrofit;
 
-    public RequestManager(Context context) {
-        this.context = context;
+
+    public static Retrofit getRetrofitInstance(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://newsapi.org/v2/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
     }
-
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    public void getNewsHeadlines(OnFetchDataListener listener, String category, String query){
-        CallNewsApi callNewsApi = retrofit.create(CallNewsApi.class);
-        Call<NewsApiResponse> call = callNewsApi.callHeadlines("us", category, query, AppConstants.API_KEY);
-
-        try{
-            call.enqueue(new Callback<NewsApiResponse>() {
-                @Override
-                public void onResponse(Call<NewsApiResponse> call, Response<NewsApiResponse> response) {
-                    if(!response.isSuccessful()){
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT);
-                    }
-                    listener.fetchData(response.body().getArticles(), response.message());
-                }
-
-                @Override
-                public void onFailure(Call<NewsApiResponse> call, Throwable t) {
-                    listener.onError("Request Failed!");
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
 
 }

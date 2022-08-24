@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -23,44 +23,87 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/app_name"
-                android:inputType="textPersonName"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
                 app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-                app:layout_constraintEnd_toStartOf="@+id/button_search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <Button
-                android:id="@+id/button_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickSearch"
-                android:text="@string/search"
-                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextSearch"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
             <ImageButton
                 android:id="@+id/imageButtonFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
-                android:onClick="clearFilterOnClick"
+                android:onClick="removeCategoriesClicked"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/horizontalScrollView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextSearch"
-                app:srcCompat="@drawable/ic_baseline_filter_list_24" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_button_container"
+                app:srcCompat="@drawable/ic_baseline_filter_list_24"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+                android:contentDescription="TODO" />
+
+            <LinearLayout
+                android:id="@+id/radio_button_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextSearch">
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/all_item"
+                        app:layout_constraintTop_toBottomOf="@+id/editTextSearch"
+                        tools:ignore="DuplicateSpeakableTextCheck"
+                        tools:layout_editor_absoluteX="2dp" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonUkr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/ukraine_item"
+                        android:onClick="selectCountryUkrClicked"/>
+
+                    <RadioButton
+                        android:id="@+id/radioButtonUs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/usa_item"
+                        android:onClick="selectCountryUSAClicked"/>
+
+                    <RadioButton
+                        android:id="@+id/radioButtonJp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/jp_item"
+                        android:onClick="selectCountryJPClicked"/>
+
+                </RadioGroup>
+            </LinearLayout>
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/radio_button_container"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageButtonFilter"
-                app:layout_constraintTop_toBottomOf="@+id/editTextSearch">
+                app:layout_constraintStart_toEndOf="@+id/imageButtonFilter">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -73,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:onClick="showGeneralNews"
+                        android:onClick="showGeneralNewsClicked"
                         android:text="@string/general"
                         tools:ignore="OnClick" />
 
@@ -83,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:onClick="showBusinessNews"
+                        android:onClick="showBusinessNewsClicked"
                         android:text="@string/business" />
 
                     <Button
@@ -91,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:onClick="showEntertainmentNews"
+                        android:onClick="showEntertainmentNewsClicked"
                         android:text="@string/entertainment" />
 
                     <Button
@@ -99,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:onClick="showHealthNews"
+                        android:onClick="showHealthNewsClicked"
                         android:text="@string/health" />
 
                     <Button
@@ -107,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:onClick="showScienceNews"
+                        android:onClick="showScienceNewsClicked"
                         android:text="@string/science" />
 
                     <Button
@@ -115,17 +158,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:onClick="showSportsNews"
+                        android:onClick="showSportNewsClicked"
                         android:text="@string/sports" />
 
                     <Button
                         android:id="@+id/button_technology"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="showTechnologyNews"
+                        android:onClick="showTechnologyNewsClicked"
                         android:text="@string/technology" />
                 </LinearLayout>
             </HorizontalScrollView>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,4 +182,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,10 @@
     <string name="technology">technology</string>
 
     <string name="search">search</string>
+    <string name="radiobutton">RadioButton</string>
+
+    <string name="all_item">All</string>
+    <string name="usa_item">USA</string>
+    <string name="ukraine_item">Ukraine</string>
+    <string name="jp_item">Japan</string>
 </resources>

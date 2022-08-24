@@ -5,7 +5,6 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,9 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.today.DetailActivity;
+import com.example.today.ui.DetailActivity;
 import com.example.today.R;
-import com.example.today.YoutubeActivity;
+import com.example.today.ui.YoutubeActivity;
 import com.example.today.models.NewsHeadlines;
 
 import java.util.List;
@@ -63,6 +62,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 }
                 ActivityOptions activityOptions = ActivityOptions.makeBasic();
                 intent.putExtra("currentArticle", headlines.get(position));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent, activityOptions.toBundle());
 
             }
@@ -74,7 +74,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         return headlines.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public NewsHeadlines getItemAtPosition(int index){
+        return headlines.get(index);
+    }
+
+    public static class CustomViewHolder extends RecyclerView.ViewHolder {
 
         TextView textTitle;
         TextView textSource;

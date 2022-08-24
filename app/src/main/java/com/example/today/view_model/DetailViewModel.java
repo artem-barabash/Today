@@ -1,14 +1,24 @@
 package com.example.today.view_model;
 
-import androidx.databinding.BaseObservable;
+import android.content.Context;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.today.ui.DetailActivity;
 import com.example.today.models.NewsHeadlines;
+import com.squareup.picasso.Picasso;
 
 public class DetailViewModel extends BaseObservable {
-    private NewsHeadlines newsHeadlines;
+    private final NewsHeadlines newsHeadlines;
 
     public DetailViewModel(NewsHeadlines newsHeadlines){
         this.newsHeadlines = newsHeadlines;
+
+       Glide.with(DetailActivity.activityDetailBinding.imageArticle).
+                load(newsHeadlines.getUrlToImage()).
+                into(DetailActivity.activityDetailBinding.imageArticle);
 
     }
 
